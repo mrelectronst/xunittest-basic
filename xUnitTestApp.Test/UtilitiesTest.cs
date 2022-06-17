@@ -9,16 +9,21 @@ namespace xUnitTestApp.Test
 {
     public class UtilitiesTest
     {
+        private readonly Utilities _utilities;
+        public UtilitiesTest()
+        {
+            _utilities = new Utilities();
+        }
+
         [Fact]
         public void ConvertRegExTest()
         {
             //Arrange
             string regEx = "dog";
             string regEx2 = "dog fth";
-            var utilities = new Utilities();
 
             //Act
-            var result = utilities.ConvertRegEx(regEx);
+            var result = _utilities.ConvertRegEx(regEx);
 
             //Assert
             Assert.Matches(result, regEx2);
@@ -31,10 +36,9 @@ namespace xUnitTestApp.Test
             //Arrange
             string value = "fth";
             string value2 = "krm";
-            var utilities = new Utilities();
 
             //Act
-            var result = utilities.StartWith(value,value2);
+            var result = _utilities.StartWith(value,value2);
 
             //Assert
             Assert.StartsWith(value, result);

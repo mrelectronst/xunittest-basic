@@ -5,19 +5,40 @@ namespace xUnitTestApp.Test
 
     public class CalcTest
     {
+        private readonly Calc _calc;
+
+        public CalcTest()
+        {
+            _calc = new Calc();
+        }
+
         [Fact]
         public void SumTest()
         {
             //Arrange
             int a = 1;
             int b = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.sum(a, b);
+            var result = _calc.sum(a, b);
 
             //Assert
-            Assert.Equal<int>(3, result);
+            Assert.Equal(3, result);
+        }
+
+        [Theory]
+        [InlineData(4,3,7)]
+        [InlineData(7, 3, 10)]
+        [InlineData(4, 15, 19)]
+        public void SumTestWithParameters(int a, int b, int expectedTotal)
+        {
+            //Arrange
+
+            //Act
+            var result = _calc.sum(a, b);
+
+            //Assert
+            Assert.Equal(expectedTotal, result);
         }
 
         [Fact]
@@ -26,10 +47,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int a = 1;
             int b = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.sum(a, b);
+            var result = _calc.sum(a, b);
 
             //Assert
             Assert.IsAssignableFrom<int>(result);
@@ -41,10 +61,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int a = 5;
             int b = 27;
-            var calc = new Calc();
 
             //Act
-            var result = calc.sum(a, b);
+            var result = _calc.sum(a, b);
 
             //Assert
             Assert.InRange(result, 30, 45);
@@ -57,10 +76,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 1;
             int end = 10;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             Assert.Contains(3, result);
@@ -72,10 +90,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 1;
             int end = 10;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             //Assert.Null(result);
@@ -88,10 +105,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 1;
             int end = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             Assert.Single(result);
@@ -103,10 +119,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 1;
             int end = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             Assert.IsType<List<int>>(result);
@@ -118,10 +133,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 1;
             int end = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             Assert.IsAssignableFrom<IEnumerable<int>>(result);
@@ -133,10 +147,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 1;
             int end = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             Assert.IsNotType<string>(result);
@@ -148,10 +161,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int start = 2;
             int end = 5;
-            var calc = new Calc();
 
             //Act
-            var result = calc.FindOddNumbers(start, end);
+            var result = _calc.FindOddNumbers(start, end);
 
             //Assert
             //Assert.Empty(result);
@@ -165,10 +177,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int a = 5;
             int b = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.IsGreaterThan(a, b);
+            var result = _calc.IsGreaterThan(a, b);
 
             //Assert
             Assert.True(result);
@@ -180,10 +191,9 @@ namespace xUnitTestApp.Test
             //Arrange
             int a = 1;
             int b = 2;
-            var calc = new Calc();
 
             //Act
-            var result = calc.IsLessThan(a, b);
+            var result = _calc.IsLessThan(a, b);
 
             //Assert
             Assert.True(result);
