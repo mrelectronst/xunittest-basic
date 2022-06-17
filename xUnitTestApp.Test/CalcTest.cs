@@ -21,6 +21,22 @@ namespace xUnitTestApp.Test
         }
 
         [Fact]
+        public void SumInRangeTest()
+        {
+            //Arrange
+            int a = 5;
+            int b = 27;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.sum(a, b);
+
+            //Assert
+            Assert.InRange(result, 30, 45);
+            //Assert.NotInRange(result, 30, 45);
+        }
+
+        [Fact]
         public void FindOddNumbersTest()
         {
             //Arrange
@@ -33,6 +49,22 @@ namespace xUnitTestApp.Test
 
             //Assert
             Assert.Contains(3, result);
+        }
+
+        [Fact]
+        public void FindOddNumbersEmptyTest()
+        {
+            //Arrange
+            int start = 2;
+            int end = 5;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.FindOddNumbers(start, end);
+
+            //Assert
+            //Assert.Empty(result);
+            Assert.NotEmpty(result);
         }
 
 
