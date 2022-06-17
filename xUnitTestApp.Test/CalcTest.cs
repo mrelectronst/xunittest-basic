@@ -21,6 +21,21 @@ namespace xUnitTestApp.Test
         }
 
         [Fact]
+        public void SumIsAssignableFromTest()
+        {
+            //Arrange
+            int a = 1;
+            int b = 2;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.sum(a, b);
+
+            //Assert
+            Assert.IsAssignableFrom<int>(result);
+        }
+
+        [Fact]
         public void SumInRangeTest()
         {
             //Arrange
@@ -49,6 +64,82 @@ namespace xUnitTestApp.Test
 
             //Assert
             Assert.Contains(3, result);
+        }
+
+        [Fact]
+        public void FindOddNumbersIsNullTest()
+        {
+            //Arrange
+            int start = 1;
+            int end = 10;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.FindOddNumbers(start, end);
+
+            //Assert
+            //Assert.Null(result);
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void FindOddNumbersSingleTest()
+        {
+            //Arrange
+            int start = 1;
+            int end = 2;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.FindOddNumbers(start, end);
+
+            //Assert
+            Assert.Single(result);
+        }
+
+        [Fact]
+        public void FindOddNumbersTypeListTest()
+        {
+            //Arrange
+            int start = 1;
+            int end = 2;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.FindOddNumbers(start, end);
+
+            //Assert
+            Assert.IsType<List<int>>(result);
+        }
+
+        [Fact]
+        public void FindOddNumbersIsAssignableFromTest()
+        {
+            //Arrange
+            int start = 1;
+            int end = 2;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.FindOddNumbers(start, end);
+
+            //Assert
+            Assert.IsAssignableFrom<IEnumerable<int>>(result);
+        }
+
+        [Fact]
+        public void FindOddNumbersTypeStringTest()
+        {
+            //Arrange
+            int start = 1;
+            int end = 2;
+            var calc = new Calc();
+
+            //Act
+            var result = calc.FindOddNumbers(start, end);
+
+            //Assert
+            Assert.IsNotType<string>(result);
         }
 
         [Fact]
