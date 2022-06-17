@@ -16,5 +16,9 @@
 
             return oddNumbers;
         }
+
+        public bool IsGreaterThan(int a,int b) => a > b;
+
+        public bool IsLessThan(int a, int b) => a < b;
     }
 }
