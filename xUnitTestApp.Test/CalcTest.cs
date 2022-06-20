@@ -30,14 +30,13 @@ namespace xUnitTestApp.Test
         }
 
         [Theory]
-        [InlineData(4,3,7)]
+        [InlineData(4, 3, 7)]
         [InlineData(7, 3, 10)]
         [InlineData(4, 15, 19)]
         public void SumTestWithParameters(int a, int b, int expectedTotal)
         {
-            _calcMock.Setup(x => x.Sum(a, b)).Returns(expectedTotal);
-
             //Arrange
+            _calcMock.Setup(x => x.Sum(a, b)).Returns(expectedTotal);
 
             //Act
             var result = _calc.sum(a, b);
@@ -52,16 +51,33 @@ namespace xUnitTestApp.Test
         [InlineData(4, 15, 60)]
         public void Multiply_SimpleValues_ReturnResultOfMultiply(int a, int b, int expectedTotal)
         {
-            _calcMock.Setup(x => x.Multiply(a, b)).Returns(expectedTotal);
-
             //Arrange
+            int actualResult = 0;
+            //_calcMock.Setup(x => x.Multiply(a, b)).Returns(expectedTotal);
+            _calcMock.Setup(x => x.Multiply(It.IsAny<int>(), It.IsAny<int>())).Callback<int, int>((x, y) => actualResult = x * y)
+            .Returns(expectedTotal);
 
             //Act
-            var result = _calc.multiply(a, b);
+            _calc.multiply(a, b);
 
             //Assert
-            Assert.Equal(expectedTotal, result);
-            _calcMock.Verify(x=> x.Multiply(a,b),Times.AtLeast(1));
+            Assert.Equal(expectedTotal, actualResult);
+            //_calcMock.Verify(x => x.Multiply(a, b), Times.AtLeast(1));
+        }
+
+        [Theory]
+        [InlineData(0, 3)]
+        public void Multiply_ZeroValue_ReturnException(int a, int b)
+        {
+            //Arrange
+            _calcMock.Setup(x => x.Multiply(a, b)).Throws(new Exception("Error"));
+
+            //Act
+
+            //Assert
+            var ex = Assert.Throws<Exception>(() => _calc.multiply(a, b));
+
+            Assert.Equal("Error", ex.Message);
         }
 
         [Fact]
