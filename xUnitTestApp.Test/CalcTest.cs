@@ -1,4 +1,5 @@
 ﻿using ClassLibraryApp;
+using Moq;
 
 namespace xUnitTestApp.Test
 {
@@ -6,14 +7,16 @@ namespace xUnitTestApp.Test
     public class CalcTest
     {
         private readonly Calc _calc;
+        private Mock<ICalcService> _calcMock;
 
         public CalcTest()
         {
-            _calc = new Calc();
+            _calcMock = new Mock<ICalcService>();
+            _calc = new Calc(_calcMock.Object);
         }
 
         [Fact]
-        public void SumTest()
+        public void Sum_SimpleValues_ReturnTotalValue()
         {
             //Arrange
             int a = 1;
@@ -32,6 +35,8 @@ namespace xUnitTestApp.Test
         [InlineData(4, 15, 19)]
         public void SumTestWithParameters(int a, int b, int expectedTotal)
         {
+            _calcMock.Setup(x => x.Sum(a, b)).Returns(expectedTotal);
+
             //Arrange
 
             //Act
@@ -41,8 +46,26 @@ namespace xUnitTestApp.Test
             Assert.Equal(expectedTotal, result);
         }
 
+        [Theory]
+        [InlineData(4, 3, 12)]
+        [InlineData(7, 3, 21)]
+        [InlineData(4, 15, 60)]
+        public void Multiply_SimpleValues_ReturnResultOfMultiply(int a, int b, int expectedTotal)
+        {
+            _calcMock.Setup(x => x.Multiply(a, b)).Returns(expectedTotal);
+
+            //Arrange
+
+            //Act
+            var result = _calc.multiply(a, b);
+
+            //Assert
+            Assert.Equal(expectedTotal, result);
+            _calcMock.Verify(x=> x.Multiply(a,b),Times.AtLeast(1));
+        }
+
         [Fact]
-        public void SumIsAssignableFromTest()
+        public void Sum_IsAssignableFromInt_ReturnTrue()
         {
             //Arrange
             int a = 1;
